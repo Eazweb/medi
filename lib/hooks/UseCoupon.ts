@@ -1,4 +1,3 @@
-// lib/hooks/useCoupon.ts
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -6,6 +5,7 @@ const useCoupon = () => {
   const [couponCode, setCouponCode] = useState<string>("");
   const [isCouponCorrect, setIsCouponCorrect] = useState<boolean>(false);
   const [discountValue, setDiscountValue] = useState<number>(0);
+  const [couponUsed, setCouponUsed] = useState<string | null>(null);
 
   const checkCoupon = async () => {
     try {
@@ -27,21 +27,25 @@ const useCoupon = () => {
         if (data.coupon) {
           setIsCouponCorrect(true);
           setDiscountValue(data.coupon.discountValue);
+          setCouponUsed(couponCode); // Set couponUsed after successful validation
           toast.success("Coupon applied successfully!");
         } else {
           setIsCouponCorrect(false);
           setDiscountValue(0);
+          setCouponUsed(null); // Reset couponUsed on invalid code
           toast.error(data.message || "Invalid coupon code");
         }
       } else {
         setIsCouponCorrect(false);
         setDiscountValue(0);
+        setCouponUsed(null); // Reset couponUsed on error
         toast.error(data.message || "Error checking coupon");
       }
     } catch (error) {
       console.error("Error fetching coupon:", error);
       setIsCouponCorrect(false);
       setDiscountValue(0);
+      setCouponUsed(null); // Reset couponUsed on error
       toast.error("Something went wrong!");
     }
   };
@@ -52,6 +56,7 @@ const useCoupon = () => {
     isCouponCorrect,
     discountValue,
     checkCoupon,
+    couponUsed, // Expose couponUsed state
   };
 };
 

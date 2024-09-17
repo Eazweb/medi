@@ -100,7 +100,12 @@ export default function OrderDetails({
   const { data, error } = useSWR(`/api/orders/${orderId}`);
 
   if (error) return error.message;
-  if (!data) return <Loader />;
+  if (!data)
+    return (
+      <div className="w-full h-[90vh]">
+        <Loader />
+      </div>
+    );
 
   const {
     paymentMethod,
@@ -110,6 +115,7 @@ export default function OrderDetails({
     taxPrice,
     shippingPrice,
     totalPrice,
+    couponUsed,
     isDelivered,
     deliveredAt,
     isPaid,
@@ -117,7 +123,7 @@ export default function OrderDetails({
   } = data;
 
   return (
-    <div className="w-[90%] mx-auto max-w-[1300px]">
+    <div className="w-[90%] mx-auto max-w-[1300px] min-h-[90vh]">
       <h1 className="text-2xl font-semibold py-4 mt-5">Order {orderId}</h1>
 
       <div className="md:flex ">
@@ -221,6 +227,18 @@ export default function OrderDetails({
                 <div>Total</div>
                 <div>₹{totalPrice}</div>
               </div>
+            </li>
+            <li>
+              {couponUsed != "" ? (
+                <div className="mb-2 flex justify-center text-center">
+                  <h1>
+                    Coupon Used:{" "}
+                    <span className="text-green-500 font-semibold">
+                      {couponUsed}
+                    </span>
+                  </h1>
+                </div>
+              ) : null}
             </li>
 
             {!isPaid && paymentMethod === "Razorpay" && (

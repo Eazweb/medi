@@ -30,6 +30,7 @@ const Form = () => {
     isCouponCorrect,
     discountValue,
     checkCoupon,
+    couponUsed,
   } = useCoupon();
 
   const [discountedTotalPrice, setDiscountedTotalPrice] = useState(totalPrice);
@@ -51,6 +52,7 @@ const Form = () => {
           shippingPrice,
           totalPrice: discountedTotalPrice,
           discountApplied: discountValue,
+          couponUsed,
         }),
       });
       const data = await res.json();
