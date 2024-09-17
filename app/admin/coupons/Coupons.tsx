@@ -23,12 +23,26 @@ import {
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import Loader from "@/components/Loader";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Products() {
-  const { data: coupons, error } = useSWR(`/api/admin/coupons`);
+  const { data: coupons, error: couponsError } = useSWR(`/api/admin/coupons`);
+  const { data: orders, error: ordersError } = useSWR(`/api/admin/orders`);
+  const [couponUsage, setCouponUsage] = useState<{ [key: string]: number }>({});
 
   const router = useRouter();
+
+  useEffect(() => {
+    if (orders) {
+      const usage: { [key: string]: number } = {};
+      orders.forEach((order: any) => {
+        if (order.couponUsed) {
+          usage[order.couponUsed] = (usage[order.couponUsed] || 0) + 1;
+        }
+      });
+      setCouponUsage(usage);
+    }
+  }, [orders]);
 
   const { trigger: deleteCoupon } = useSWRMutation(
     `/api/admin/coupons`,
@@ -68,8 +82,8 @@ export default function Products() {
     }
   );
 
-  if (error) return "An error has occurred.";
-  if (!coupons)
+  if (couponsError || ordersError) return "An error has occurred.";
+  if (!coupons || !orders)
     return (
       <div>
         <Loader />
@@ -116,9 +130,8 @@ export default function Products() {
                   <TableCell>{coupon.code}</TableCell>
                   <TableCell>₹{coupon.discountValue}</TableCell>
                   <TableCell className="hidden md:table-cell">
-                    {coupon.usedCount}
+                    {couponUsage[coupon.code] || 0}
                   </TableCell>
-
                   <TableCell className="hidden sm:table-cell">
                     {coupon.discountType}
                   </TableCell>
