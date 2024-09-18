@@ -8,7 +8,7 @@ const DashbaordPage = () => {
     <AdminLayout activeItem="">
       <div className="w-full h-full flex justify-center items-center">
         Welcome Admin
-      </div>{" "}
+      </div>
     </AdminLayout>
   );
 };

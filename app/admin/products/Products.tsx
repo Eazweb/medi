@@ -77,7 +77,7 @@ export default function Products() {
     );
 
   return (
-    <div>
+    <div className="min-h-[90vh] w-[90%] mx-auto">
       <div className="flex justify-between items-center">
         <h1 className="py-4 text-2xl">Products</h1>
         <button
@@ -136,7 +136,9 @@ export default function Products() {
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem
-                          onClick={() => deleteProduct({ productId: product._id! })}
+                          onClick={() =>
+                            deleteProduct({ productId: product._id! })
+                          }
                         >
                           Delete
                         </DropdownMenuItem>

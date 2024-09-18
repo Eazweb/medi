@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const Footer = () => {
@@ -54,44 +55,68 @@ const Footer = () => {
                 liftlockbelts@gmail.com
               </a>
             </div>
+            <div>
+              <span className="text-base font-bold tracking-wide text-gray-100">
+                Social
+              </span>
+              <div className="flex items-center mt-3 space-x-3">
+                <a
+                  href="https://wa.me/message/3BKOF3I2XU4NA1"
+                  target="_blank"
+                  className="text-gray-400 transition-colors duration-300 hover:text-deep-purple-accent-400"
+                >
+                  <Image
+                    src="/footerwhatsapp.svg"
+                    width={25}
+                    height={25}
+                    className="filter invert"
+                    alt=""
+                  />
+                </a>
+                <a
+                  href="https://www.instagram.com/gymbelts.leverbelts?igsh=MXF5M3d6dHcwcm00OA=="
+                  target="_blank"
+                  className="text-gray-400 transition-colors duration-300 hover:text-deep-purple-accent-400"
+                >
+                  <Image
+                    src="/footerinstagram.svg"
+                    width={25}
+                    height={25}
+                    className="filter invert"
+                    alt=""
+                  />
+                </a>
+                <a
+                  href="/faq"
+                  className="text-md font-semibold text-white transition-colors duration-300 hover:text-deep-purple-accent-400"
+                >
+                  F.A.Q
+                </a>
+              </div>
+            </div>
           </div>
-          <div>
-            <span className="text-base font-bold tracking-wide text-gray-100">
-              Social
-            </span>
-            <div className="flex items-center mt-3 space-x-3">
-              <a
-                href="https://wa.me/message/3BKOF3I2XU4NA1"
-                target="_blank"
-                className="text-gray-400 transition-colors duration-300 hover:text-deep-purple-accent-400"
-              >
-                <Image
-                  src="/footerwhatsapp.svg"
-                  width={25}
-                  height={25}
-                  className="filter invert"
-                  alt=""
-                />
-              </a>
-              <a
-                href="https://www.instagram.com/gymbelts.leverbelts?igsh=MXF5M3d6dHcwcm00OA=="
-                target="_blank"
-                className="text-gray-400 transition-colors duration-300 hover:text-deep-purple-accent-400"
-              >
-                <Image
-                  src="/footerinstagram.svg"
-                  width={25}
-                  height={25}
-                  className="filter invert"
-                  alt=""
-                />
-              </a>
-              <a
-                href="/faq"
-                className="text-md font-semibold text-white transition-colors duration-300 hover:text-deep-purple-accent-400"
-              >
-                F.A.Q
-              </a>
+          <div className="space-y-2 text-sm text-white block">
+            <div className="text-base font-bold tracking-wide text-gray-100">
+              Policies
+            </div>
+            <div>
+              <Link href="/policies/privacy">Privacy</Link>
+            </div>
+            <div>
+              <Link href="/policies/contact-us">Contact Us</Link>
+            </div>
+            <div>
+              <Link href="/policies/terms-and-conditions">
+                Terms and Conditions
+              </Link>
+            </div>
+            <div>
+              <Link href="/policies/refund-and-cancellations">
+                Refund and Cancellations
+              </Link>
+            </div>
+            <div>
+              <Link href="/policies/shipping-policy">Shipping Policy</Link>
             </div>
           </div>
         </div>

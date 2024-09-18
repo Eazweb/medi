@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/table";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import Loader from "@/components/Loader";
+import { Eye, MoreHorizontal } from "lucide-react";
 
 export default function Orders() {
   const { data: orders, error } = useSWR(`/api/admin/orders`);
@@ -31,7 +32,7 @@ export default function Orders() {
     );
 
   return (
-    <div className="w-[90%] mx-auto h-auto ">
+    <div className="w-[90%] mx-auto h-auto min-h-[90vh] ">
       <h1 className="py-4 text-2xl">Orders</h1>
       <div className="  overflow-x-auto">
         <div className="rounded-md border">
@@ -64,19 +65,19 @@ export default function Orders() {
                     <TableCell className="hidden sm:table-cell">
                       {order.isPaid && order.paidAt
                         ? `${order.paidAt.substring(0, 10)}`
-                        : "Not paid"}
+                        : "_"}
                     </TableCell>
                     <TableCell className="hidden lg:table-cell">
                       {order.isDelivered && order.deliveredAt
                         ? `${order.deliveredAt.substring(0, 10)}`
-                        : "Not delivered"}
+                        : "_"}
                     </TableCell>
                     <TableCell>
                       <Link
                         href={`/order/${order._id}`}
-                        className=" hover:underline"
+                        className=" hover:underline "
                       >
-                        Details
+                        <Eye />
                       </Link>
                     </TableCell>
                   </TableRow>
