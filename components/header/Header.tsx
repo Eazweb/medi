@@ -23,7 +23,7 @@ const Header = () => {
           </div>
           <Link
             href="/"
-            className={` ${logoFont.className} hidden md:flex ml-5 text-2xl btn btn-ghost`}
+            className={` ${logoFont.className} flex ml-5 text-2xl btn btn-ghost`}
           >
             <Image
               src="/headerlogo.png"
