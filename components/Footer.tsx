@@ -36,7 +36,7 @@ const Footer = () => {
             <div className="flex">
               <p className="mr-1 text-gray-300">Phone:</p>
               <a
-                href="tel:850-123-5021"
+                href="tel:+919056506403"
                 aria-label="Our phone"
                 title="Our phone"
                 className="transition-colors duration-300 text-gray-300 hover:text-gray-400"
