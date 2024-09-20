@@ -14,7 +14,12 @@ const page = () => {
         Email: liftlockbelts@gmail.com
         <br />
         <br />
-        Thanks for shopping with us!!
+        Address: 100 Green Enclave, S.A.S Nagar, Sector- 118, Mohali, pincode -
+        140301
+        <br />
+        <br />
+        Owner - Sukhman Kaur <br />
+        <br /> Thanks for shopping with us!!
       </p>
     </div>
   );
