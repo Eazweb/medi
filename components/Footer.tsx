@@ -116,7 +116,9 @@ const Footer = () => {
               </Link>
             </div>
             <div>
-              <Link href="/policies/shipping-policy">Shipping Policy</Link>
+              <Link href="/policies/product-shipping-policy">
+                Shipping Policy
+              </Link>
             </div>
           </div>
         </div>
