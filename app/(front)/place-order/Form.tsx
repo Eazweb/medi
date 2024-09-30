@@ -34,6 +34,7 @@ const Form = () => {
   } = useCoupon();
 
   const [discountedTotalPrice, setDiscountedTotalPrice] = useState(totalPrice);
+  const [isUsingCoupon, setIsUsingCoupon] = useState(false);
 
   const { trigger: placeOrder, isMutating: isPlacing } = useSWRMutation(
     `/api/orders/mine`,
@@ -51,8 +52,8 @@ const Form = () => {
           taxPrice,
           shippingPrice,
           totalPrice: discountedTotalPrice,
-          discountApplied: discountValue,
-          couponUsed,
+          discountApplied: isUsingCoupon ? discountValue : 0,
+          couponUsed: isUsingCoupon ? couponUsed : "",
         }),
       });
       const data = await res.json();
@@ -67,22 +68,24 @@ const Form = () => {
   );
 
   useEffect(() => {
-    setDiscountedTotalPrice(totalPrice - discountValue);
-  }, [totalPrice, discountValue]);
+    setDiscountedTotalPrice(
+      isUsingCoupon ? totalPrice - discountValue : totalPrice
+    );
+  }, [totalPrice, discountValue, isUsingCoupon]);
 
   useEffect(() => {
     if (!paymentMethod) {
       return router.push("/payment");
     }
     if (items.length === 0) {
-      return router.push("/");
+      toast.custom("No items found");
     }
-  }, [paymentMethod, router]);
+  }, [paymentMethod, router, items.length]);
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);
-  }, [items.length]);
+  }, []);
 
   if (!mounted) return <></>;
 
@@ -92,84 +95,100 @@ const Form = () => {
 
       <div className="md:flex justify-between mt-10">
         <div className="md:w-[50%]">
+          {" "}
           <div className="cart">
-            <h2 className="text-2xl font-semibold">Ordered Items</h2>
+            {" "}
+            <h2 className="text-2xl font-semibold">Ordered Items</h2>{" "}
             {items.map((item: OrderItem, index: any) => (
               <div
                 key={index}
                 className="flex items-center justify-between py-4 px-2 mt-2 border-b border-gray-200"
               >
+                {" "}
                 <div className="flex gap-5">
+                  {" "}
                   <Link href={`/product/${item.slug}`}>
+                    {" "}
                     <div className="relative w-20 h-20 rounded-xl">
+                      {" "}
                       <Image
                         src={item.image[0]}
                         alt={item.name}
                         width={80}
                         height={80}
                         className="rounded-lg border border-gray-300"
-                      />
+                      />{" "}
                       <div className="w-6 h-6 rounded-full bg-red-700 text-white absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
-                        {item.qty}
-                      </div>
-                    </div>
-                  </Link>
+                        {" "}
+                        {item.qty}{" "}
+                      </div>{" "}
+                    </div>{" "}
+                  </Link>{" "}
                   <div className="">
+                    {" "}
                     <h1 className="text-xl line-clamp-1 font-semibold text-gray-800">
-                      {item.name.toUpperCase()}
-                    </h1>
+                      {" "}
+                      {item.name.toUpperCase()}{" "}
+                    </h1>{" "}
                     <h2 className="text-sm mt-1 flex gap-2 text-gray-600">
-                      ({item.size} {item.color})
+                      {" "}
+                      ({item.size} {item.color}){" "}
                       {item.design && (
                         <a href={item.design} target="_blank">
-                          <Link2 />
+                          {" "}
+                          <Link2 />{" "}
                         </a>
-                      )}
-                    </h2>
-                  </div>
-                </div>
-
+                      )}{" "}
+                    </h2>{" "}
+                  </div>{" "}
+                </div>{" "}
                 <div className="text-right w-24">
+                  {" "}
                   <p className="text-gray-600 font-semibold">
-                    ₹{(item.price + (item.design ? 500 : 0)) * item.qty}
-                  </p>
-                </div>
+                    {" "}
+                    ₹{(item.price + (item.design ? 500 : 0)) * item.qty}{" "}
+                  </p>{" "}
+                </div>{" "}
               </div>
-            ))}
-          </div>
-
+            ))}{" "}
+          </div>{" "}
           <div className="my-8">
+            {" "}
             <div className="flex justify-between items-center">
-              <h2 className="card-title">Shipping Address</h2>
+              {" "}
+              <h2 className="card-title">Shipping Address</h2>{" "}
               <Link
                 className="px-3 py-1 rounded-lg border-zinc-700  text-md border-[1px]"
                 href="/shipping"
               >
-                Edit
-              </Link>
-            </div>
-            <p className="mt-3">{shippingAddress.fullName}</p>
-            <p>{shippingAddress.mobileNumber}</p>
+                {" "}
+                Edit{" "}
+              </Link>{" "}
+            </div>{" "}
+            <p className="mt-3">{shippingAddress.fullName}</p>{" "}
+            <p>{shippingAddress.mobileNumber}</p>{" "}
             <p>
+              {" "}
               {shippingAddress.address}, {shippingAddress.city},{" "}
               {shippingAddress.postalCode}, {shippingAddress.country}{" "}
-            </p>
-          </div>
-
+            </p>{" "}
+          </div>{" "}
           <div className="my-8">
+            {" "}
             <div className="flex justify-between items-center">
-              <h2 className="card-title">Payment Method</h2>
+              {" "}
+              <h2 className="card-title">Payment Method</h2>{" "}
               <Link
                 className="px-3 py-1 rounded-lg border-zinc-700  text-md border-[1px]"
                 href="/payment"
               >
-                Edit
-              </Link>
-            </div>
-            <p className="mt-2">{paymentMethod}</p>
-          </div>
+                {" "}
+                Edit{" "}
+              </Link>{" "}
+            </div>{" "}
+            <p className="mt-2">{paymentMethod}</p>{" "}
+          </div>{" "}
         </div>
-
         <div className="w-full md:w-[40%] h-auto py-5 max-h-[400px] px-5 md:px-10 rounded-2xl shadow-xl mt-10 md:mt-0">
           <h2 className="text-xl font-semibold mt-5 text-center">
             Order Summary
@@ -200,24 +219,35 @@ const Form = () => {
               </div>
             </li>
           </ul>
-          <div className="mt-5 flex justify-between items-center">
-            <div>Coupon </div>
+          <div className="mt-5 flex items-center">
             <input
-              type="text"
-              value={couponCode}
-              onChange={(e) => setCouponCode(e.target.value)}
-              className="w-1/2 border-[1px] py-1 border-black rounded-md"
+              type="checkbox"
+              checked={isUsingCoupon}
+              onChange={(e) => setIsUsingCoupon(e.target.checked)}
+              className="mr-2"
             />
-            <button
-              onClick={() => checkCoupon()}
-              className="btn btn-primary ml-3"
-            >
-              apply
-            </button>
+            <label>Use Coupon</label>
           </div>
+          {isUsingCoupon && (
+            <div className="mt-3 flex justify-between items-center">
+              <input
+                type="text"
+                value={couponCode}
+                onChange={(e) => setCouponCode(e.target.value)}
+                className="w-2/3 border-[1px] py-1 border-black rounded-md"
+                placeholder="Enter coupon code"
+              />
+              <button
+                onClick={() => checkCoupon()}
+                className="btn btn-primary ml-3"
+              >
+                Apply
+              </button>
+            </div>
+          )}
           <div className="w-full h-[20px] text-center">
-            {isCouponCorrect && (
-              <div className="text-green-400">Coupon Applied!!</div>
+            {isCouponCorrect && isUsingCoupon && (
+              <div className="text-green-400">Coupon Applied!</div>
             )}
           </div>
 
