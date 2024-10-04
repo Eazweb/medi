@@ -11,7 +11,7 @@ export default function AddToCart({ item }: { item: OrderItem }) {
 
   useEffect(() => {
     setExistItem(
-      items.find((x) => x.slug === item.slug && x.size === item.size )
+      items.find((x) => x.slug === item.slug && x.size === item.size)
     );
   }, [item, items]);
 
@@ -23,6 +23,7 @@ export default function AddToCart({ item }: { item: OrderItem }) {
       // If the item doesn't exist in the cart or has the same size, add it
       increase(item);
     }
+    router.push("/cart");
   };
 
   return existItem ? (
