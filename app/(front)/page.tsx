@@ -1,16 +1,14 @@
-/* eslint-disable @next/next/no-img-element */
 import ProductItem from "@/components/products/ProductItem";
 import productService from "@/lib/services/productService";
 import { convertDocToObj } from "@/lib/utils1";
 import { Metadata } from "next";
 import CarouselBanner from "../../components/CarouselBanner";
 import Review from "../../components/Reviews";
-import Faq from "@/components/Faq";
 import { Maven_Pro } from "next/font/google";
 import Reels from "@/components/heropage/Reels";
 import Image from "next/image";
-import Link from "next/link";
 import Stats from "@/components/Stats";
+import { Card } from "@/components/ui/card";
 
 export const metadata: Metadata = {
   title: process.env.NEXT_PUBLIC_APP_NAME || "Lift Lock",
@@ -46,6 +44,16 @@ export default async function Home() {
               product={convertDocToObj(product)}
             />
           ))}
+          <Card className="w-full max-w-smr relative overflow-hidden min-h-[400px] transition-all hover:shadow-lg flex justify-center items-center">
+            <Image
+              src="/extraproduct.jpg"
+              alt="Coming Soon"
+              layout="fill"
+              objectFit="cover"
+              className="w-full h-full"
+            />
+            <h1 className="text-6xl xl:text-8xl text-center text-red-700 font-bold absolute">Coming <br className="" /> Soon</h1>
+          </Card>
         </div>
       </div>
       <Image
