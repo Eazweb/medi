@@ -1,5 +1,5 @@
-import NextAuth from 'next-auth'
-import type { NextAuthConfig } from 'next-auth'
+import NextAuth from "next-auth";
+import type { NextAuthConfig } from "next-auth";
 
 const authConfig = {
   providers: [],
@@ -12,25 +12,19 @@ const authConfig = {
         /\/profile/,
         /\/order\/(.*)/,
         /\/admin/,
-      ]
-      const { pathname } = request.nextUrl
-      if (protectedPaths.some((p) => p.test(pathname))) return !!auth
-      return true
+      ];
+      const { pathname } = request.nextUrl;
+      if (protectedPaths.some((p) => p.test(pathname)))
+        return Boolean(auth?.user);
+      return true;
     },
   },
-} satisfies NextAuthConfig
+} satisfies NextAuthConfig;
 
-export const { auth: middleware } = NextAuth(authConfig)
+export const authMiddleware = NextAuth(authConfig);
+export const middleware = authMiddleware.auth;
 
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
-  ],
-}
+  runtime: "edge",
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+};
