@@ -25,6 +25,6 @@ export const authMiddleware = NextAuth(authConfig);
 export const middleware = authMiddleware.auth;
 
 export const config = {
-  runtime: "edge",
+  runtime: "experimental-edge",
   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
