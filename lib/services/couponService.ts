@@ -5,7 +5,7 @@ import CouponModel, { Coupon } from "../models/CouponModel";
 const getLatest = cache(async () => {
   await dbConnect();
   const coupons = await CouponModel.find({}).sort({ _id: -1 }).limit(6).lean();
-  return coupons as Coupon[];
+  return coupons as unknown as Coupon[];
 });
 
 const couponService = { getLatest };
